@@ -96,9 +96,12 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-photo-soft text-foreground;
     font-family: 'Heebo', sans-serif;
     direction: rtl;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iI0Y3RjFFOSIgZmlsbC1ydWxlPSJldmVub2RkIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9IiNGQ0Y5RjUiLz48cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIvPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIvPjwvZz48L3N2Zz4=');
+    background-repeat: repeat;
+    background-size: 40px 40px;
   }
 
   h1, h2, h3, h4, h5, h6 {
