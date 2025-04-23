@@ -1,3 +1,4 @@
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -63,7 +64,7 @@ const Index = () => {
       <Header />
       
       {/* Main Content */}
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         {/* Left Content (scrollable) */}
         <ScrollArea className="w-full md:w-2/3 h-screen pt-32 pb-8">
           <div className="px-6">
@@ -71,6 +72,13 @@ const Index = () => {
               businessName="סטודיו לצילומי משפחה" 
               subtitle="רגעים קסומים שנשארים לנצח"
             />
+            
+            {/* Show slideshow in mobile view before About section */}
+            {isMobile && (
+              <div className="h-[300px] mb-8">
+                <ImageSlideshow images={placeholderImages} interval={7000} />
+              </div>
+            )}
             
             <About 
               title="ברוכים הבאים" 
