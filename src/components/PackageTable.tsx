@@ -14,7 +14,7 @@ interface PackageTableProps {
 }
 
 export function PackageTable({ packages, title }: PackageTableProps) {
-  const [isVisible, setIsVisible] = useState(true); // Always visible initially
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,6 +33,12 @@ export function PackageTable({ packages, title }: PackageTableProps) {
     return () => observer.disconnect();
   }, []);
 
+  const packageColors = [
+    'bg-[rgb(229,222,255)]',
+    'bg-[rgb(253,225,211)]', 
+    'bg-[rgb(254,247,205)]'
+  ];
+
   return (
     <section id="packages-section" className="py-12 md:py-16 px-4 bg-photo-beige bg-opacity-30">
       <div 
@@ -50,12 +56,12 @@ export function PackageTable({ packages, title }: PackageTableProps) {
               key={index}
               className={`rounded-lg overflow-hidden shadow-lg ${
                 pkg.isPrimary 
-                  ? 'bg-photo-pink bg-opacity-70 transform md:scale-105 z-10' 
-                  : 'bg-white'
-              }`}
+                  ? 'transform md:scale-105 z-10' 
+                  : ''
+              } ${packageColors[index % packageColors.length]} bg-opacity-70`}
               style={{
-                opacity: 1, // Always visible
-                animation: 'none', // Remove animation dependency
+                opacity: 1,
+                animation: 'none',
               }}
             >
               <div className={`p-6 ${pkg.isPrimary ? 'border-b-2 border-photo-accent' : 'border-b border-gray-200'}`}>
