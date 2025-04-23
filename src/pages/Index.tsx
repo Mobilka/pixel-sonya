@@ -1,4 +1,3 @@
-
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -9,8 +8,8 @@ import { ContactForm } from "@/components/ContactForm";
 import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
-// Placeholder data - replace with actual content
 const placeholderImages = [
   "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&q=80",
   "https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&q=80",
@@ -66,41 +65,43 @@ const Index = () => {
       {/* Main Content */}
       <div className="flex">
         {/* Left Content (scrollable) */}
-        <div className="w-full md:w-2/3 h-screen overflow-y-auto pt-32 pb-8">
-          <Hero 
-            businessName="סטודיו לצילומי משפחה" 
-            subtitle="רגעים קסומים שנשארים לנצח"
-          />
-          
-          <About 
-            title="ברוכים הבאים" 
-            content={aboutContent} 
-          />
-          
-          <Gallery 
-            title="הגלריה שלי" 
-            images={placeholderImages} 
-          />
-          
-          <PackageTable 
-            title="חבילות צילום" 
-            packages={packages} 
-          />
-          
-          <ContactForm 
-            title="יצירת קשר" 
-            phone="+972 50-1234567" 
-            email="contact@photography.com" 
-          />
-          
-          <Location 
-            title="המיקום שלנו" 
-            address="רחוב הברוש 15, תל אביב" 
-            mapUrl="https://maps.google.com?q=Tel+Aviv" 
-          />
-          
-          <Footer />
-        </div>
+        <ScrollArea className="w-full md:w-2/3 h-screen pt-32 pb-8">
+          <div className="px-6">
+            <Hero 
+              businessName="סטודיו לצילומי משפחה" 
+              subtitle="רגעים קסומים שנשארים לנצח"
+            />
+            
+            <About 
+              title="ברוכים הבאים" 
+              content={aboutContent} 
+            />
+            
+            <Gallery 
+              title="הגלריה שלי" 
+              images={placeholderImages} 
+            />
+            
+            <PackageTable 
+              title="חבילות צילום" 
+              packages={packages} 
+            />
+            
+            <ContactForm 
+              title="יצירת קשר" 
+              phone="+972 50-1234567" 
+              email="contact@photography.com" 
+            />
+            
+            <Location 
+              title="המיקום שלנו" 
+              address="רחוב הברוש 15, תל אביב" 
+              mapUrl="https://maps.google.com?q=Tel+Aviv" 
+            />
+            
+            <Footer />
+          </div>
+        </ScrollArea>
         
         {/* Right Column (1/3) - Only visible on desktop */}
         {!isMobile && (
