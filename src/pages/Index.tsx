@@ -1,4 +1,3 @@
-
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -63,17 +62,14 @@ const Index = () => {
   const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    // Clear previous observer if it exists
     if (observerRef.current) {
       observerRef.current.disconnect();
     }
 
-    // Create a new observer with fixed threshold
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            // Add the section ID to visible sections if not already there
             setVisibleSections(prev => 
               prev.includes(entry.target.id) ? prev : [...prev, entry.target.id]
             );
@@ -82,11 +78,10 @@ const Index = () => {
       },
       { 
         threshold: 0.15,
-        rootMargin: '0px 0px -10% 0px' // Trigger slightly before element comes into view
+        rootMargin: '0px 0px -10% 0px'
       }
     );
 
-    // Observe all sections after DOM has loaded
     setTimeout(() => {
       const sections = document.querySelectorAll('.scroll-section');
       sections.forEach(section => {
@@ -112,10 +107,8 @@ const Index = () => {
     <div className="min-h-screen bg-photo-soft overflow-hidden">
       <Header />
       
-      {/* Main Content */}
-      <div className="flex flex-col md:flex-row">
-        {/* Left Content (scrollable) */}
-        <ScrollArea className="w-full md:w-2/3 h-screen pt-32 pb-8">
+      <div className="flex flex-col md:flex-row pt-32">
+        <ScrollArea className="w-full md:w-2/3 h-screen pt-8 pb-8">
           <div className="px-6 space-y-16">
             <div id="hero-section" className={sectionClass('hero-section')}>
               <Hero 
@@ -124,7 +117,6 @@ const Index = () => {
               />
             </div>
             
-            {/* Show slideshow in mobile view before About section */}
             {isMobile && (
               <div id="mobile-slideshow" className={sectionClass('mobile-slideshow')}>
                 <div className="h-[300px] mb-8">
@@ -176,7 +168,6 @@ const Index = () => {
           </div>
         </ScrollArea>
         
-        {/* Right Column (1/3) - Only visible on desktop */}
         {!isMobile && (
           <div className="hidden md:block md:w-1/3 h-screen">
             <div className="sticky top-0 h-screen">
