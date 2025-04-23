@@ -16,11 +16,9 @@ export function ImageSlideshow({ images, interval = 5000 }: ImageSlideshowProps)
     const timer = setInterval(() => {
       setIsTransitioning(true);
       
-      // After a short delay, change the image
       setTimeout(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
         
-        // Reset the transition state
         setTimeout(() => {
           setIsTransitioning(false);
         }, 100);
@@ -33,14 +31,14 @@ export function ImageSlideshow({ images, interval = 5000 }: ImageSlideshowProps)
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-photo-soft">
+    <div className="relative w-full h-full bg-photo-soft">
       {images.map((image, index) => (
         <div
           key={index}
-          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+          className={`w-full h-full transition-opacity duration-700 ease-in-out ${
             index === currentIndex 
               ? isTransitioning ? 'opacity-0' : 'opacity-100' 
-              : 'opacity-0'
+              : 'opacity-0 hidden'
           }`}
         >
           <img

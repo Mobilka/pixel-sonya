@@ -1,3 +1,4 @@
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -63,7 +64,7 @@ const Index = () => {
       <Header />
       
       {/* Main Content */}
-      <div className="flex h-screen">
+      <div className="flex">
         {/* Left Content (scrollable) */}
         <div className="w-full md:w-2/3 h-screen overflow-y-auto pt-32 pb-8">
           <Hero 
@@ -103,8 +104,10 @@ const Index = () => {
         
         {/* Right Column (1/3) - Only visible on desktop */}
         {!isMobile && (
-          <div className="hidden md:block md:w-1/3 h-screen fixed right-0">
-            <ImageSlideshow images={placeholderImages} interval={7000} />
+          <div className="hidden md:block md:w-1/3 h-screen">
+            <div className="sticky top-0 h-screen">
+              <ImageSlideshow images={placeholderImages} interval={7000} />
+            </div>
           </div>
         )}
       </div>
