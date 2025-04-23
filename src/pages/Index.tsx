@@ -59,57 +59,54 @@ const Index = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="min-h-screen bg-photo-soft overflow-x-hidden">
+    <div className="min-h-screen bg-photo-soft overflow-hidden">
       <Header />
-      <div className="pt-32"> {/* Add padding to account for fixed header */}
-        <Hero 
-          businessName="סטודיו לצילומי משפחה" 
-          subtitle="רגעים קסומים שנשארים לנצח"
-        />
-        
-        {/* Main Content */}
-        <div className="w-full flex flex-col md:flex-row">
-          {/* Left Column (2/3) */}
-          <div className="w-full md:w-2/3">
-            <About 
-              title="ברוכים הבאים" 
-              content={aboutContent} 
-            />
-            
-            <Gallery 
-              title="הגלריה שלי" 
-              images={placeholderImages} 
-            />
-            
-            <PackageTable 
-              title="חבילות צילום" 
-              packages={packages} 
-            />
-            
-            <ContactForm 
-              title="יצירת קשר" 
-              phone="+972 50-1234567" 
-              email="contact@photography.com" 
-            />
-            
-            <Location 
-              title="המיקום שלנו" 
-              address="רחוב הברוש 15, תל אביב" 
-              mapUrl="https://maps.google.com?q=Tel+Aviv" 
-            />
-          </div>
+      
+      {/* Main Content */}
+      <div className="flex h-screen">
+        {/* Left Content (scrollable) */}
+        <div className="w-full md:w-2/3 h-screen overflow-y-auto pt-32 pb-8">
+          <Hero 
+            businessName="סטודיו לצילומי משפחה" 
+            subtitle="רגעים קסומים שנשארים לנצח"
+          />
           
-          {/* Right Column (1/3) - Only visible on desktop */}
-          {!isMobile && (
-            <div className="hidden md:block md:w-1/3 sticky top-32 h-[calc(100vh-8rem)]">
-              <div className="h-full w-full">
-                <ImageSlideshow images={placeholderImages} interval={7000} />
-              </div>
-            </div>
-          )}
+          <About 
+            title="ברוכים הבאים" 
+            content={aboutContent} 
+          />
+          
+          <Gallery 
+            title="הגלריה שלי" 
+            images={placeholderImages} 
+          />
+          
+          <PackageTable 
+            title="חבילות צילום" 
+            packages={packages} 
+          />
+          
+          <ContactForm 
+            title="יצירת קשר" 
+            phone="+972 50-1234567" 
+            email="contact@photography.com" 
+          />
+          
+          <Location 
+            title="המיקום שלנו" 
+            address="רחוב הברוש 15, תל אביב" 
+            mapUrl="https://maps.google.com?q=Tel+Aviv" 
+          />
+          
+          <Footer />
         </div>
         
-        <Footer />
+        {/* Right Column (1/3) - Only visible on desktop */}
+        {!isMobile && (
+          <div className="hidden md:block md:w-1/3 h-screen fixed right-0">
+            <ImageSlideshow images={placeholderImages} interval={7000} />
+          </div>
+        )}
       </div>
     </div>
   );
