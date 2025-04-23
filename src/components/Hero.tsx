@@ -16,9 +16,14 @@ export function Hero({ businessName, subtitle, photographerImage }: HeroProps) {
 
   return (
     <div className="relative w-full h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden">
-      {/* Background with subtle pixel effect */}
-      <div className="absolute inset-0 bg-photo-soft bg-opacity-90 z-0">
-        <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzMzMyIgZmlsbC1ydWxlPSJldmVub2RkIj48Y2lyY2xlIGN4PSIxIiBjeT0iMSIgcj0iMSIvPjwvZz48L3N2Zz4=')]"></div>
+      {/* Pixeled Background */}
+      <div className="absolute inset-0 bg-cover bg-center z-0" 
+           style={{ 
+             backgroundImage: `url('https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7')`, 
+             filter: 'brightness(0.5) contrast(1.2) grayscale(0.2)',
+             backgroundBlendMode: 'multiply'
+           }}>
+        <div className="absolute inset-0 opacity-20 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjMDAwIj48L3JlY3Q+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyIiBoZWlnaHQ9IjIiIGZpbGw9IiMyMjIiPjwvcmVjdD4KPC9zdmc+')] bg-repeat"></div>
       </div>
 
       {/* Content */}
@@ -32,11 +37,11 @@ export function Hero({ businessName, subtitle, photographerImage }: HeroProps) {
             />
           </div>
         )}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-photo-text mb-4">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-white mb-4">
           {businessName}
         </h1>
         {subtitle && (
-          <p className="text-xl md:text-2xl text-photo-text font-light max-w-lg mx-auto">
+          <p className="text-xl md:text-2xl text-white/90 font-light max-w-lg mx-auto">
             {subtitle}
           </p>
         )}
