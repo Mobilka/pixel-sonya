@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 interface PackageProps {
@@ -58,13 +57,13 @@ export function PackageTable({ packages, title }: PackageTableProps) {
                 shadow-lg 
                 flex 
                 flex-col 
-                ${pkg.isPrimary ? 'transform md:scale-105 z-10 border-2 border-photo-accent' : ''}
                 ${packageColors[index % packageColors.length]} 
                 bg-opacity-70
                 h-full
+                border border-photo-accent/20
               `}
             >
-              <div className={`p-6 text-center ${pkg.isPrimary ? 'border-b-2 border-photo-accent' : 'border-b border-gray-200'}`}>
+              <div className="p-6 text-center border-b border-photo-accent/20">
                 <h3 className="text-xl md:text-2xl font-medium mb-2">{pkg.name}</h3>
                 <p className="text-xl md:text-2xl font-light">{pkg.price}</p>
               </div>
@@ -75,7 +74,7 @@ export function PackageTable({ packages, title }: PackageTableProps) {
                       <svg className="w-5 h-5 text-photo-accent mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"></path>
                       </svg>
-                      <span className="text-photo-text mr-2">{feature}</span>
+                      <span className="text-photo-text ml-2">{feature}</span>
                     </li>
                   ))}
                 </ul>
