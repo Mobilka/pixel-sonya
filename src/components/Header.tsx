@@ -9,7 +9,7 @@ export function Header() {
           <img 
             src="/lovable-uploads/696b3217-048d-431f-b7b0-85fc08f00f8a.png" 
             alt="Pixel Sonya - Professional Photographer" 
-            className="w-full h-24 object-cover"  // Changed from object-contain to object-cover
+            className="w-full h-auto object-contain"
           />
         </Link>
       </div>
