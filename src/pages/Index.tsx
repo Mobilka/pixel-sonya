@@ -1,4 +1,3 @@
-
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -10,6 +9,7 @@ import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState, useEffect } from 'react';
 
 const placeholderImages = [
   "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&q=80",
@@ -58,6 +58,30 @@ const aboutContent = `אני צלמת משפחות המתמחה בלכידת ה�
 
 const Index = () => {
   const isMobile = useIsMobile();
+  const [visibleSections, setVisibleSections] = useState<string[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setVisibleSections(prev => [...prev, entry.target.id]);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const sections = document.querySelectorAll('.scroll-section');
+    sections.forEach(section => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const sectionClass = (id: string) => `
+    scroll-section transition-all duration-700 
+    ${visibleSections.includes(id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+  `;
 
   return (
     <div className="min-h-screen bg-photo-soft overflow-hidden">
@@ -68,46 +92,62 @@ const Index = () => {
         {/* Left Content (scrollable) */}
         <ScrollArea className="w-full md:w-2/3 h-screen pt-32 pb-8">
           <div className="px-6">
-            <Hero 
-              businessName="סטודיו לצילומי משפחה" 
-              subtitle="רגעים קסומים שנשארים לנצח"
-            />
+            <div id="hero-section" className={sectionClass('hero-section')}>
+              <Hero 
+                businessName="סטודיו לצילומי משפחה" 
+                subtitle="רגעים קסומים שנשארים לנצח"
+              />
+            </div>
             
             {/* Show slideshow in mobile view before About section */}
             {isMobile && (
-              <div className="h-[300px] mb-8">
-                <ImageSlideshow images={placeholderImages} interval={7000} />
+              <div id="mobile-slideshow" className={sectionClass('mobile-slideshow')}>
+                <div className="h-[300px] mb-8">
+                  <ImageSlideshow images={placeholderImages} interval={7000} />
+                </div>
               </div>
             )}
             
-            <About 
-              title="ברוכים הבאים" 
-              content={aboutContent} 
-            />
+            <div id="about-section" className={sectionClass('about-section')}>
+              <About 
+                title="ברוכים הבאים" 
+                content={aboutContent} 
+              />
+            </div>
             
-            <Gallery 
-              title="הגלריה שלי" 
-              images={placeholderImages} 
-            />
+            <div id="gallery-section" className={sectionClass('gallery-section')}>
+              <Gallery 
+                title="הגלריה שלי" 
+                images={placeholderImages} 
+              />
+            </div>
             
-            <PackageTable 
-              title="חבילות צילום" 
-              packages={packages} 
-            />
+            <div id="packages-section" className={sectionClass('packages-section')}>
+              <PackageTable 
+                title="חבילות צילום" 
+                packages={packages} 
+              />
+            </div>
             
-            <ContactForm 
-              title="יצירת קשר" 
-              phone="+972 50-1234567" 
-              email="contact@photography.com" 
-            />
+            <div id="contact-section" className={sectionClass('contact-section')}>
+              <ContactForm 
+                title="יצירת קשר" 
+                phone="+972 50-1234567" 
+                email="contact@photography.com" 
+              />
+            </div>
             
-            <Location 
-              title="המיקום שלנו" 
-              address="רחוב הברוש 15, תל אביב" 
-              mapUrl="https://maps.google.com?q=Tel+Aviv" 
-            />
+            <div id="location-section" className={sectionClass('location-section')}>
+              <Location 
+                title="המיקום שלנו" 
+                address="רחוב הברוש 15, תל אביב" 
+                mapUrl="https://maps.google.com?q=Tel+Aviv" 
+              />
+            </div>
             
-            <Footer />
+            <div id="footer-section" className={sectionClass('footer-section')}>
+              <Footer />
+            </div>
           </div>
         </ScrollArea>
         
