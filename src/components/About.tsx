@@ -7,7 +7,7 @@ interface AboutProps {
 }
 
 export function About({ content, title }: AboutProps) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true); // Always visible initially
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,12 +29,10 @@ export function About({ content, title }: AboutProps) {
   return (
     <section id="about-section" className="py-12 md:py-16 px-4">
       <div 
-        className={`max-w-3xl mx-auto transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
+        className="max-w-3xl mx-auto transition-all duration-700 opacity-100 translate-y-0"
       >
         {title && (
-          <h2 className="text-3xl md:text-4xl font-light text-center mb-8 text-photo-text">
+          <h2 className="text-3xl md:text-4xl font-light text-center mb-8 text-photo-text font-bold">
             {title}
           </h2>
         )}
