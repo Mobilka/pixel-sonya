@@ -1,3 +1,4 @@
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -104,11 +105,11 @@ const Index = () => {
   `;
 
   return (
-    <div className="min-h-screen bg-photo-soft overflow-hidden">
+    <div className="flex flex-col min-h-screen bg-photo-soft overflow-hidden">
       <Header />
       
-      <div className="flex flex-col md:flex-row pt-32">
-        <ScrollArea className="w-full md:w-2/3 h-screen pt-8 pb-8">
+      <main className="flex flex-col md:flex-row flex-grow mt-[72px]">
+        <ScrollArea className="w-full md:w-2/3 h-screen pb-8">
           <div className="px-6 space-y-16">
             <div id="hero-section" className={sectionClass('hero-section')}>
               <Hero 
@@ -175,7 +176,7 @@ const Index = () => {
             </div>
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };
