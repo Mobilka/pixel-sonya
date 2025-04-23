@@ -1,3 +1,4 @@
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -107,7 +108,7 @@ const Index = () => {
     <div className="min-h-screen bg-photo-soft overflow-hidden">
       <Header />
       
-      <div className="flex flex-col md:flex-row pt-32">
+      <div className="flex flex-col md:flex-row pt-[255px]">
         <ScrollArea className="w-full md:w-2/3 h-screen pt-8 pb-8">
           <div className="px-6 space-y-16">
             <div id="hero-section" className={sectionClass('hero-section')}>
@@ -181,3 +182,4 @@ const Index = () => {
 };
 
 export default Index;
+
