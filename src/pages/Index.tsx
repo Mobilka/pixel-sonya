@@ -1,3 +1,4 @@
+
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -9,7 +10,7 @@ import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const placeholderImages = [
   "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&q=80",
@@ -59,28 +60,52 @@ const aboutContent = `אני צלמת משפחות המתמחה בלכידת ה�
 const Index = () => {
   const isMobile = useIsMobile();
   const [visibleSections, setVisibleSections] = useState<string[]>([]);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    // Clear previous observer if it exists
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    // Create a new observer with fixed threshold
+    observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            setVisibleSections(prev => [...prev, entry.target.id]);
+            // Add the section ID to visible sections if not already there
+            setVisibleSections(prev => 
+              prev.includes(entry.target.id) ? prev : [...prev, entry.target.id]
+            );
           }
         });
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.15,
+        rootMargin: '0px 0px -10% 0px' // Trigger slightly before element comes into view
+      }
     );
 
-    const sections = document.querySelectorAll('.scroll-section');
-    sections.forEach(section => observer.observe(section));
+    // Observe all sections after DOM has loaded
+    setTimeout(() => {
+      const sections = document.querySelectorAll('.scroll-section');
+      sections.forEach(section => {
+        if (observerRef.current) {
+          observerRef.current.observe(section);
+        }
+      });
+    }, 100);
 
-    return () => observer.disconnect();
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
   }, []);
 
   const sectionClass = (id: string) => `
-    scroll-section transition-all duration-700 
-    ${visibleSections.includes(id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
+    scroll-section relative transition-all duration-1000 ease-in-out
+    ${visibleSections.includes(id) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}
   `;
 
   return (
@@ -91,7 +116,7 @@ const Index = () => {
       <div className="flex flex-col md:flex-row">
         {/* Left Content (scrollable) */}
         <ScrollArea className="w-full md:w-2/3 h-screen pt-32 pb-8">
-          <div className="px-6">
+          <div className="px-6 space-y-16">
             <div id="hero-section" className={sectionClass('hero-section')}>
               <Hero 
                 businessName="סטודיו לצילומי משפחה" 
