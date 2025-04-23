@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export function Header() {
   return (
-    <header className="w-full bg-photo-soft/80 backdrop-blur-sm py-4 px-6 fixed top-0 z-50">
+    <header className="w-full bg-photo-soft/80 backdrop-blur-sm fixed top-0 z-50">
       <div className="w-full flex items-center justify-center">
         <Link to="/" className="w-full flex justify-center">
           <img 
