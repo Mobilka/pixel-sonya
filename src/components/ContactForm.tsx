@@ -1,6 +1,6 @@
-
 import { useState, useEffect } from 'react';
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, MessageCircle } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ContactFormProps {
   title?: string;
@@ -8,13 +8,14 @@ interface ContactFormProps {
   email?: string;
 }
 
-export function ContactForm({ title, phone, email }: ContactFormProps) {
+export function ContactForm({ title, phone = "0526937074", email = "POLINA.OHANA@GMAIL.COM" }: ContactFormProps) {
   const [name, setName] = useState('');
   const [contactInfo, setContactInfo] = useState('');
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,12 +57,87 @@ export function ContactForm({ title, phone, email }: ContactFormProps) {
   const openWhatsApp = () => {
     if (!phone) return;
     const phoneNumber = phone.replace(/\D/g, ''); // Remove non-digits
-    window.open(`https://wa.me/${phoneNumber}`, '_blank');
+    window.open(`https://wa.me/972${phoneNumber.substring(1)}`, '_blank');
+  };
+
+  const openPhone = () => {
+    if (!phone) return;
+    window.open(`tel:${phone}`);
   };
 
   const openEmail = () => {
     if (!email) return;
     window.open(`mailto:${email}`);
+  };
+
+  const ContactButtons = () => {
+    if (isMobile) {
+      return (
+        <div className="flex justify-center gap-4 mb-8">
+          <button 
+            onClick={openPhone}
+            className="w-14 h-14 rounded-full flex items-center justify-center shadow-md"
+            style={{ backgroundColor: 'rgb(253, 225, 211)' }}
+          >
+            <Phone className="h-6 w-6 text-gray-700" />
+          </button>
+          <button 
+            onClick={openWhatsApp}
+            className="w-14 h-14 rounded-full flex items-center justify-center shadow-md"
+            style={{ backgroundColor: 'rgb(242, 252, 226)' }}
+          >
+            <MessageCircle className="h-6 w-6 text-gray-700" />
+          </button>
+          <button 
+            onClick={openEmail}
+            className="w-14 h-14 rounded-full flex items-center justify-center shadow-md"
+            style={{ backgroundColor: 'rgb(211, 228, 253)' }}
+          >
+            <Mail className="h-6 w-6 text-gray-700" />
+          </button>
+        </div>
+      );
+    }
+
+    return (
+      <div className="flex flex-col justify-center space-y-4 mb-8">
+        <button 
+          onClick={openPhone}
+          className="flex items-center p-4 rounded-lg shadow-md transition-shadow hover:shadow-lg"
+          style={{ backgroundColor: 'rgb(253, 225, 211)' }}
+        >
+          <Phone className="h-10 w-10 text-gray-700 ml-4" />
+          <div className="text-right">
+            <p className="text-sm text-gray-500">התקשרו אלינו</p>
+            <p className="text-lg font-medium text-gray-700">{phone}</p>
+          </div>
+        </button>
+        
+        <button 
+          onClick={openWhatsApp}
+          className="flex items-center p-4 rounded-lg shadow-md transition-shadow hover:shadow-lg"
+          style={{ backgroundColor: 'rgb(242, 252, 226)' }}
+        >
+          <MessageCircle className="h-10 w-10 text-gray-700 ml-4" />
+          <div className="text-right">
+            <p className="text-sm text-gray-500">שלחו הודעה בוואטסאפ</p>
+            <p className="text-lg font-medium text-gray-700">{phone}</p>
+          </div>
+        </button>
+        
+        <button 
+          onClick={openEmail}
+          className="flex items-center p-4 rounded-lg shadow-md transition-shadow hover:shadow-lg"
+          style={{ backgroundColor: 'rgb(211, 228, 253)' }}
+        >
+          <Mail className="h-10 w-10 text-gray-700 ml-4" />
+          <div className="text-right">
+            <p className="text-sm text-gray-500">שלחו לנו מייל</p>
+            <p className="text-lg font-medium text-gray-700 lowercase">{email}</p>
+          </div>
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -78,6 +154,9 @@ export function ContactForm({ title, phone, email }: ContactFormProps) {
         )}
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          {/* Contact Buttons */}
+          <ContactButtons />
+          
           {/* Contact Form */}
           <div className="bg-white shadow-lg rounded-lg p-6">
             <h3 className="text-xl font-medium mb-6 text-photo-text text-center">השאירו פרטים ואחזור אליכם</h3>
@@ -132,35 +211,6 @@ export function ContactForm({ title, phone, email }: ContactFormProps) {
                 </div>
               )}
             </form>
-          </div>
-          
-          {/* Contact Info */}
-          <div className="flex flex-col justify-center space-y-8">
-            {phone && (
-              <button 
-                onClick={openWhatsApp}
-                className="flex items-center p-4 rounded-lg bg-white shadow-md hover:shadow-lg transition-shadow"
-              >
-                <Phone className="h-10 w-10 text-photo-accent ml-4 rtl:ml-4 rtl:mr-0" />
-                <div className="text-right rtl:text-right">
-                  <p className="text-sm text-gray-500">יצירת קשר בוואטסאפ</p>
-                  <p className="text-lg font-medium text-photo-text">{phone}</p>
-                </div>
-              </button>
-            )}
-            
-            {email && (
-              <button 
-                onClick={openEmail}
-                className="flex items-center p-4 rounded-lg bg-white shadow-md hover:shadow-lg transition-shadow"
-              >
-                <Mail className="h-10 w-10 text-photo-accent ml-4" />
-                <div className="text-right">
-                  <p className="text-sm text-gray-500">שליחת מייל</p>
-                  <p className="text-lg font-medium text-photo-text">{email}</p>
-                </div>
-              </button>
-            )}
           </div>
         </div>
       </div>
