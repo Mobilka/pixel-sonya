@@ -35,10 +35,10 @@ export function ImageSlideshow({ images, interval = 5000 }: ImageSlideshowProps)
       {images.map((image, index) => (
         <div
           key={index}
-          className={`w-full h-full transition-opacity duration-700 ease-in-out ${
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
             index === currentIndex 
               ? isTransitioning ? 'opacity-0' : 'opacity-100' 
-              : 'opacity-0 hidden'
+              : 'opacity-0'
           }`}
         >
           <img
