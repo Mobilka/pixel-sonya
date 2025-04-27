@@ -58,10 +58,10 @@ const Index = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="flex flex-col min-h-screen bg-photo-soft">
+    <div className="flex flex-col min-h-screen">
       <Header />
       
-      <div className="flex flex-1">
+      <main className="flex-1 flex mt-24">
         <div className="w-full md:w-2/3 overflow-y-auto">
           <Hero 
             businessName="סטודיו לצילומי משפחה" 
@@ -103,7 +103,7 @@ const Index = () => {
             <ImageSlideshow images={placeholderImages} interval={7000} />
           </div>
         )}
-      </div>
+      </main>
     </div>
   );
 };
