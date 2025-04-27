@@ -1,4 +1,3 @@
-
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
@@ -10,7 +9,6 @@ import { Location } from "@/components/Location";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
-// Placeholder data - replace with actual content
 const placeholderImages = [
   "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?auto=format&fit=crop&q=80",
   "https://images.unsplash.com/photo-1721322800607-8c38375eef04?auto=format&fit=crop&q=80",
@@ -60,13 +58,11 @@ const Index = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="min-h-screen bg-photo-soft">
+    <div className="flex flex-col min-h-screen bg-photo-soft">
       <Header />
       
-      {/* Main Content */}
-      <div className="flex">
-        {/* Left Content (scrollable) */}
-        <div className="w-full md:w-2/3 h-[calc(100vh-96px)] mt-24 overflow-y-auto">
+      <div className="flex flex-1">
+        <div className="w-full md:w-2/3 overflow-y-auto">
           <Hero 
             businessName="סטודיו לצילומי משפחה" 
             subtitle="רגעים קסומים שנשארים לנצח"
@@ -102,12 +98,9 @@ const Index = () => {
           <Footer />
         </div>
         
-        {/* Right Column (1/3) - Only visible on desktop */}
         {!isMobile && (
-          <div className="hidden md:block md:w-1/3 h-[calc(100vh-96px)] mt-24">
-            <div className="h-full">
-              <ImageSlideshow images={placeholderImages} interval={7000} />
-            </div>
+          <div className="hidden md:block md:w-1/3">
+            <ImageSlideshow images={placeholderImages} interval={7000} />
           </div>
         )}
       </div>

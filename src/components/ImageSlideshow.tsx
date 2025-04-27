@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 interface ImageSlideshowProps {
@@ -31,7 +30,7 @@ export function ImageSlideshow({ images, interval = 5000 }: ImageSlideshowProps)
   if (images.length === 0) return null;
 
   return (
-    <div className="relative w-full h-full bg-photo-soft">
+    <div className="relative h-full bg-photo-soft">
       {images.map((image, index) => (
         <div
           key={index}
